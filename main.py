@@ -1,36 +1,37 @@
-# Make an API that when the dogWalked it will set a value on the server called "DogWalked" to true, after 5 hours it will set it to false
-
-import datetime
 from datetime import datetime, timedelta
-
-import time
 import fastapi
-import json
-import uvicorn
+from fastapi import FastAPI
+from pymongo import MongoClient
 
-app = fastapi.FastAPI()
+app = FastAPI()
+
+# Connect to MongoDB
+client = MongoClient("123")
+db = client["dog"]
+collection = db["dogWalked"]
 
 @app.get("/dogWalked")
 def dogWalked():
-    with open("dogWalked.json", "r") as f:
-        data = json.load(f)
+    data = collection.find_one({}, sort=[("_id", -1)])  # Retrieve the latest document from the collection
 
-    stored_time = datetime.strptime(data["Time"], '%Y-%m-%dT%H:%M:%S.%f')
-    current_time = datetime.now()
+    if data:
+        stored_time = data["Time"]
+        stored_time = datetime.strptime(stored_time, '%Y-%m-%dT%H:%M:%S.%f')
+        current_time = datetime.now()
 
-    if data["DogWalked"] and stored_time > current_time - timedelta(hours=3):
-        return "Dog has been walked"
+        if data["DogWalked"] and stored_time > current_time - timedelta(hours=3):
+            return "Dog has been walked"
+        else:
+            return "Dog has not been walked"
     else:
-        return "Dog has not been walked"
-    
+        return "No dogWalked data found"
+
 @app.get("/dogWalked/set")
 def setDogWalked():
-    json_data = {"DogWalked": True, "Time": (datetime.now().isoformat())}
-    json_string = json.dumps(json_data)
-    
-    # Write to file called dogWalked.json
-    with open("dogWalked.json", "w") as json_file:
-        json_file.write(json_string)
-    
+    json_data = {"DogWalked": True, "Time": datetime.now().isoformat()}
+    collection.insert_one(json_data)
     return True
-    
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
