@@ -6,7 +6,7 @@ from pymongo import MongoClient
 app = FastAPI()
 
 # Connect to MongoDB
-client = MongoClient("123")
+client = MongoClient("mongodb+srv://admin:admin@dog.ggox8mu.mongodb.net/?retryWrites=true&w=majority")
 db = client["dog"]
 collection = db["dogWalked"]
 
@@ -20,9 +20,9 @@ def dogWalked():
         current_time = datetime.now()
 
         if data["DogWalked"] and stored_time > current_time - timedelta(hours=3):
-            return "Dog has been walked"
+            return True
         else:
-            return "Dog has not been walked"
+            return False
     else:
         return "No dogWalked data found"
 
@@ -30,7 +30,7 @@ def dogWalked():
 def setDogWalked():
     json_data = {"DogWalked": True, "Time": datetime.now().isoformat()}
     collection.insert_one(json_data)
-    return True
+    return "Successfully set the dog walked status to True!"
 
 if __name__ == "__main__":
     import uvicorn
