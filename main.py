@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 import fastapi
 from fastapi import FastAPI
 from pymongo import MongoClient
+import requests
 
 app = FastAPI()
 
@@ -30,6 +31,13 @@ def dogWalked():
 def setDogWalked():
     json_data = {"DogWalked": True, "Time": datetime.now().isoformat()}
     collection.insert_one(json_data)
+    url = "https://alertzy.app/send"
+    data = {
+        "accountKey": "cr6z67s2qzvzc1t",
+        "title": "THE DOG HAS BEEN WALKED",
+        "message": "Phew, the dog has been walked!"
+    }
+    response = requests.post(url, data=data)
     return "Successfully set the dog walked status to True!"
 
 if __name__ == "__main__":
