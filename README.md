@@ -1,4 +1,3 @@
-
 # Dog Walked API
 
 This is an API that should be self-hosted to see if someone in your family has walked your dog, and sends a push notification if the dog hasn't been walked past a certain time. It integrates with the Alertzy app.
@@ -73,13 +72,15 @@ I'd recommend selecting '1'. Then, go all the way to the bottom of the file and 
 
 ```0 18 * * 1-5 python3 Dog-Walked-API/reminder.py```
 
-That will run the check to see if the dog was walked every day Monday through Friday at 6pm. However, you can modify the cron timing if you'd like. '18' is the hour of the day, and 1-5 are the days of the week. You can validate your cron time [here](https://crontab.cronhub.io/) buy simply pasting in your new time in the area that says '*/5 * * * *'.
+That will run the check to see if the dog was walked every day Monday through Friday at 6pm. However, you can modify the cron timing if you'd like. '18' is the hour of the day, and 1-5 are the days of the week. You can validate your cron time [here](https://crontab.cronhub.io/) by simply pasting in your new time in the area that says '*/5 * * * *'. Now, save the file and if you set everything up correctly, you should be good to go!
 
 #### With a Synology Nas
 
 To do it with a Synology Nas, just use the control panel and setup a recurring task for 6pm every day Monday - Friday (if that's what you want of course). A more detailed guide on this will come later.
 
-Now, save the file and if you set everything up correctly, you should be good to go! If the notification doesn't send at the time you set even though it should, verify the time on your server and adjust the cron time according to that. If that still doesn't work, ensure that you set everything up as the root user OR modify the cron job line to run the reminder.py file from the users's files.
+#### Once done (Potential errors for Cron Job)
+
+If the notification doesn't send at the time you set even though it should, verify the time on your server and adjust the cron time according to that. If that still doesn't work, ensure that you set everything up as the root user OR modify the cron job line to run the reminder.py file from the users's files.
 
 ## Further Steps
 
