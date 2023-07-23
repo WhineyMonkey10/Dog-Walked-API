@@ -2,14 +2,11 @@ from datetime import datetime, timedelta
 import fastapi
 from fastapi import FastAPI
 from pymongo import MongoClient
-<<<<<<< HEAD
 import requests
-=======
 import os
 import dotenv
 
 dotenv.load_dotenv()
->>>>>>> d12105afef6128b5d9b89097799e05f9945cffd7
 
 app = FastAPI()
 
@@ -40,7 +37,7 @@ def setDogWalked():
     collection.insert_one(json_data)
     url = "https://alertzy.app/send"
     data = {
-        "accountKey": "cr6z67s2qzvzc1t",
+        "accountKey": os.getenv("ALERTZY-KEY"),
         "title": "THE DOG HAS BEEN WALKED",
         "message": "Phew, the dog has been walked!"
     }
