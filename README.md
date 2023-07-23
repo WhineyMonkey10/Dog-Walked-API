@@ -55,7 +55,7 @@ Now run these following commands to finsih the setup of the API
 
 ```bash
   docker build -t dog_walk_api .
-  docker run -p 8000:8000 dog_walk_api
+  docker run -d -p 8000:8000 dog_walk_api
 ```
 
 If you'd like to check out your API, go to: ```http://serverIP:8000/docs```
