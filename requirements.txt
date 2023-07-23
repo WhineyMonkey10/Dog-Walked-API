@@ -2,4 +2,8 @@ datetime
 fastapi
 uvicorn
 pymongo
+<<<<<<< HEAD
 requests
+=======
+python-dotenv
+>>>>>>> d12105afef6128b5d9b89097799e05f9945cffd7
