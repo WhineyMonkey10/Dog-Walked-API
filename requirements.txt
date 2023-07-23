@@ -2,3 +2,4 @@ datetime
 fastapi
 uvicorn
 pymongo
+python-dotenv

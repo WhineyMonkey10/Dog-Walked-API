@@ -2,11 +2,15 @@ from datetime import datetime, timedelta
 import fastapi
 from fastapi import FastAPI
 from pymongo import MongoClient
+import os
+import dotenv
+
+dotenv.load_dotenv()
 
 app = FastAPI()
 
 # Connect to MongoDB
-client = MongoClient("mongodb+srv://admin:admin@dog.ggox8mu.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient(os.getenv("MONGO_URI"))
 db = client["dog"]
 collection = db["dogWalked"]
 
@@ -26,7 +30,7 @@ def dogWalked():
     else:
         return "No dogWalked data found"
 
-@app.get("/dogWalked/set")
+@app.post("/dogWalked/set")
 def setDogWalked():
     json_data = {"DogWalked": True, "Time": datetime.now().isoformat()}
     collection.insert_one(json_data)
