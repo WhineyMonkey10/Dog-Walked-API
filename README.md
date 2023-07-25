@@ -15,6 +15,24 @@ This is an API that should be self-hosted to see if someone in your family has w
 
 Install Dog Walked API using Git & Python. This setup guide has been written using an Ubuntu 22.04 server from Digital Ocean. To setup the later part of the guide, using a Synology Nas is recommended however the instructions will on how to set it up using and Ubuntu 22.04 server, but it will explain how to do it with a Synology.
 
+#### Fast-setup - **NOT RECOMMENDED**
+
+If you don't have the patience to follow the guide, you can use the fast-setup script. This script may sometimes be outdated if new features are just added, but should be good. Make sure that you have Python & PiP installed.
+
+Just run the ```fastSetup.sh``` file to start it. If it errors while running run the following command:
+
+```bash
+  chmod +x fastSetup.sh
+```
+
+Then, run the follwing command again:
+```bash
+  ./fastSetup.sh
+  ```
+
+#### Manual setup - **RECOMMENDED**
+
+
 ```bash
   git clone https://github.com/WhineyMonkey10/Dog-Walked-API
   cd Dog-Walked-API/
